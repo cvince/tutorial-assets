@@ -11,6 +11,13 @@ const logoCanvasSize = 512;
 
 const designs = [
   {
+    file: 'cli-closing-landscape-4k.mp4',
+    width: 3840, height: 2160, logoSize: 370, logoY: 680,
+    titleWidth: 3250, titleHeight: 160, titleY: 1109,
+    fontSize: 104,
+    title: 'https://capy.sc/cli',
+  },
+  {
     file: 'onboarding-landscape-4k.mp4',
     width: 3840, height: 2160, logoSize: 370, logoY: 680,
     titleWidth: 3250, titleHeight: 160, titleY: 1109,

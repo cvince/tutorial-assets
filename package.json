@@ -6,7 +6,8 @@
   "scripts": {
     "build": "node capy-video-intros/build-intros.cjs",
     "preview": "python3 -m http.server 8000 --directory capy-video-intros",
-    "build:onboarding": "node capy-video-intros/build-intros.cjs onboarding --reuse-logo-frames"
+    "build:onboarding": "node capy-video-intros/build-intros.cjs onboarding --reuse-logo-frames",
+    "build:cli-closing": "node capy-video-intros/build-intros.cjs cli-closing --reuse-logo-frames"
   },
   "devDependencies": {
     "playwright": "1.64.1"
