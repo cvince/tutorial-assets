@@ -6,15 +6,16 @@ Capy video title cards, animated intros, and existing 4K exports.
 
 All original assets are preserved in `capy-video-intros/`:
 
-- `index.html`: interactive preview with five current designs.
-- `build-intros.cjs`: source for rendering the five current MP4s.
+- `index.html`: interactive preview with six current designs.
+- `build-intros.cjs`: source for rendering the six current MP4s.
 - `Michroma-Regular.woff2` and `Michroma-OFL.txt`: font and its license.
 - `logo-frames/`: 45 frames of the cube-to-Y logo animation.
 - PNG title layers and previews, including earlier design iterations.
-- Six existing H.264 MP4 exports, each six seconds at 30 fps.
+- Seven H.264 MP4 exports, each six seconds at 30 fps.
 
 | Current title | Format | Export |
 | --- | --- | --- |
+| Onboarding | Landscape 3840 × 2160 | `onboarding-landscape-4k.mp4` |
 | Capy Transport / Technical Deep Dive | Landscape 3840 × 2160 | `capy-transport-technical-deep-dive-landscape-4k.mp4` |
 | Capy User Management / Technical Deep Dive | Landscape 3840 × 2160 | `capy-user-management-technical-deep-dive-landscape-4k.mp4` |
 | What Makes Capy "Unhackable" / Technical Deep Dive | Landscape 3840 × 2160 | `what-makes-capy-unhackable-landscape-4k.mp4` |
@@ -41,4 +42,8 @@ npx playwright install chromium
 npm run build
 ```
 
-The renderer uses the project Playwright dependency instead of the original temporary machine-specific path. Rebuilding replaces the five current videos and their generated title/logo PNG assets in `capy-video-intros/`; it does not regenerate the older preview images or portrait Unhackable variant. Existing exports have been verified to decode successfully. This import has not re-rendered them.
+The renderer uses the project Playwright dependency instead of the original temporary machine-specific path. Rebuilding replaces the six current videos and their generated title/logo PNG assets in `capy-video-intros/`; it does not regenerate the older preview images or portrait Unhackable variant. The Onboarding export was rendered from this source. All seven videos have been verified to decode successfully; the earlier exports are preserved.
+
+Run `npm run build:onboarding` to render just Onboarding using the existing logo frames. Its full-frame 4K title-card still is `capy-video-intros/onboarding-landscape-4k-preview.png`.
+
+If Google Chrome is already installed, use `CAPY_BROWSER_CHANNEL=chrome npm run build:onboarding` to render with it instead of downloading Playwright Chromium.

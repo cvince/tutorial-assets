@@ -11,6 +11,13 @@ const logoCanvasSize = 512;
 
 const designs = [
   {
+    file: 'onboarding-landscape-4k.mp4',
+    width: 3840, height: 2160, logoSize: 370, logoY: 680,
+    titleWidth: 3250, titleHeight: 160, titleY: 1109,
+    fontSize: 104,
+    title: 'Onboarding',
+  },
+  {
     file: 'capy-transport-technical-deep-dive-landscape-4k.mp4',
     width: 3840, height: 2160, logoSize: 370, logoY: 680,
     titleWidth: 3250, titleHeight: 320, titleY: 1075,
@@ -50,6 +57,11 @@ const designs = [
     titleTracking: '.18em',
   },
 ];
+
+const requestedDesign = process.argv.slice(2).find((argument) => !argument.startsWith('--'));
+const selectedDesigns = requestedDesign
+  ? designs.filter((design) => design.file === requestedDesign || design.file.startsWith(`${requestedDesign}-`))
+  : designs;
 
 const escaped = (value) => value
   .replaceAll('&', '&amp;').replaceAll('<', '&lt;')
@@ -126,11 +138,17 @@ const renderVideo = (design, framesDir, titlePaths) => {
 };
 
 const main = async () => {
+  if (selectedDesigns.length === 0) throw new Error(`Unknown intro: ${requestedDesign}`);
   await mkdir(output, { recursive: true });
   const siteFont = (await readFile(join(output, 'Michroma-Regular.woff2'))).toString('base64');
-  const browser = await chromium.launch({ headless: true });
-  const framesDir = await renderLogoFrames(browser);
-  for (const design of designs) {
+  const browser = await chromium.launch({
+    headless: true,
+    ...(process.env.CAPY_BROWSER_CHANNEL ? { channel: process.env.CAPY_BROWSER_CHANNEL } : {}),
+  });
+  const framesDir = process.argv.includes('--reuse-logo-frames')
+    ? join(output, 'logo-frames')
+    : await renderLogoFrames(browser);
+  for (const design of selectedDesigns) {
     const titles = design.sequential
       ? design.lines.map((_, activeIndex) => design.lines.map((line, lineIndex) => `<span style="display:block;visibility:${lineIndex === activeIndex ? 'visible' : 'hidden'};${design.invitationGap && lineIndex === 1 ? 'margin-top:163px;' : ''}">${escaped(line)}</span>`).join(''))
       : [design.lines ? design.lines.map(escaped).join('<br>') : escaped(design.title)];
@@ -142,7 +160,7 @@ const main = async () => {
     }
   }
   await browser.close();
-  for (const design of designs) {
+  for (const design of selectedDesigns) {
     const titlePaths = design.sequential
       ? design.lines.map((_, index) => join(output, design.file.replace('.mp4', `-title-${index}.png`)))
       : [join(output, design.file.replace('.mp4', '-title.png'))];
