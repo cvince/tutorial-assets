@@ -1,0 +1,13 @@
+{
+  "name": "tutorial-assets",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Capy tutorial title cards, animated intros, and 4K exports.",
+  "scripts": {
+    "build": "node capy-video-intros/build-intros.cjs",
+    "preview": "python3 -m http.server 8000 --directory capy-video-intros"
+  },
+  "devDependencies": {
+    "playwright": "1.64.1"
+  }
+}

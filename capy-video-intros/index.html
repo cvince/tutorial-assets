@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Capy Video Intros</title>
+  <style>
+    @font-face { font-family: Michroma; src: url('./Michroma-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: #000; color: #fff; font-family: Arial, Helvetica, sans-serif; }
+    body { display: flex; flex-direction: column; align-items: center; gap: 1rem; padding: 1rem; }
+    nav { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; font-size: 14px; }
+    nav a { color: #aaa; text-decoration: none; border: 1px solid #444; border-radius: 5px; padding: .5rem .75rem; }
+    nav a[aria-current="page"] { color: #fff; border-color: #fff; }
+    .stage { position: relative; background: #000; overflow: hidden; container-type: inline-size; outline: 1px solid #333; }
+    .stage.landscape { width: min(calc((100dvh - 5.5rem) * 16 / 9), calc(100vw - 2rem)); aspect-ratio: 16 / 9; }
+    .stage.portrait { width: min(calc((100dvh - 5.5rem) * 9 / 16), calc(100vw - 2rem)); aspect-ratio: 9 / 16; }
+    .mark { position: absolute; display: block; font-size: var(--mark-size); width: var(--mark-size); height: var(--mark-size); left: 50%; top: var(--mark-top); transform: translateX(-50%); }
+    .intro, .cube { position: absolute; inset: 0; display: block; transform-style: preserve-3d; transform: none; }
+    .intro { animation: faceForward 1000ms ease both; }
+    .cube svg { position: absolute; inset: 0; display: block; width: 100%; height: 100%; backface-visibility: hidden; }
+    .front { transform: translateZ(.5em); }
+    .back { transform: rotateY(180deg) translateZ(.5em); }
+    .left { transform: rotateY(-90deg) translateZ(.5em); }
+    .right { transform: rotateY(90deg) translateZ(.5em); }
+    .top { transform: rotateX(90deg) translateZ(.5em); }
+    .bottom { transform: rotateX(-90deg) translateZ(.5em); }
+    @keyframes faceForward { 0%, 15% { transform: scale(.6123724357) rotateX(-35.2643897deg) rotateY(45deg); } 100% { transform: none; } }
+    .title { position: absolute; left: 50%; top: var(--title-top); transform: translateX(-50%); white-space: nowrap; font-size: var(--title-size); font-weight: 400; line-height: 1.18; letter-spacing: -.027em; color: #f5f5f5; text-align: center; animation: titleEnter 750ms 870ms both; }
+    @keyframes titleEnter { from { opacity: 0; translate: 0 1.3cqw; } to { opacity: 1; translate: 0 0; } }
+    .stage.v1 .title { animation: none; font-family: Michroma, Arial, sans-serif; font-weight: 400; letter-spacing: .18em; }
+    .stage.v1 .title .line { display: block; white-space: nowrap; animation: lineFade 1200ms ease both; }
+    .stage.v1 .title .line:first-child { animation-delay: 900ms; }
+    .stage.v1 .title .line:nth-child(2) { animation-delay: 2100ms; margin-top: 2.4em; }
+    .stage.v1 .title .line:nth-child(2) a { color: inherit; text-decoration: none; }
+    @keyframes lineFade { from { opacity: 0; } to { opacity: 1; } }
+    .stage.landscape { --mark-size: 9.64cqw; --mark-top: 31.48%; --title-top: 51.39%; --title-size: 2.71cqw; }
+    .stage.portrait.encryption { --mark-size: 18.98cqw; --mark-top: 37.76%; --title-top: 51.3%; --title-size: 5.74cqw; }
+    .stage.portrait.v1 { --mark-size: 18.98cqw; --mark-top: 36.2%; --title-top: 51.3%; --title-size: 3.15cqw; }
+    .stage:not(.active) { display: none; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Choose an intro">
+    <a href="?intro=transport" data-intro="transport">Transport · landscape</a>
+    <a href="?intro=user-management" data-intro="user-management">User Management · landscape</a>
+    <a href="?intro=unhackable" data-intro="unhackable">Unhackable · landscape</a>
+    <a href="?intro=encryption" data-intro="encryption">Encryption · portrait</a>
+    <a href="?intro=v1" data-intro="v1">Capy V1 · portrait</a>
+  </nav>
+  <main class="stage" id="stage" aria-label="Animated intro preview">
+    <span class="mark" role="img" aria-label="Capy cube turning into its Y mark"><span class="intro"><span class="cube">
+      <svg class="front" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" fill="black"/><path d="M34.5 18.25V33.7061L45.4277 44.8496L42.5723 47.6504L32.5 37.3789L22.4277 47.6504L19.5723 44.8496L30.5 33.7061V18.25H34.5Z" fill="white"/></svg>
+      <svg class="left" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#DDDDDD"/><g transform="matrix(2.3094 -1.1547 0 2 -22.397 -38.802)"><path d="M32.375 53.5L13.875 33.4862L13.875 48.5L32.375 59L32.375 53.5Z" fill="black"/></g></svg>
+      <svg class="top" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#DDDDDD"/></svg>
+      <svg class="right" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#DDDDDD"/></svg>
+      <svg class="bottom" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#DDDDDD"/></svg>
+      <svg class="back" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#DDDDDD"/></svg>
+    </span></span></span>
+    <span class="title" id="title"></span>
+  </main>
+  <script>
+    const intros = {
+      transport: { classes: 'landscape', title: 'Capy Transport<br>Technical Deep Dive' },
+      'user-management': { classes: 'landscape', title: 'Capy User Management<br>Technical Deep Dive' },
+      unhackable: { classes: 'landscape', title: 'What Makes Capy "Unhackable"<br>Technical Deep Dive' },
+      encryption: { classes: 'portrait encryption', title: 'ELI5, What Is Encryption?' },
+      v1: { classes: 'portrait v1', title: 'COMING NOVEMBER 2026<br><a href="https://capy.sc">GET AN INVITE AT CAPY.SC</a>' },
+    };
+    const selected = new URLSearchParams(location.search).get('intro') || 'transport';
+    const intro = intros[selected] || intros.transport;
+    document.querySelector('#stage').className = `stage active ${intro.classes}`;
+    document.querySelector('#title').innerHTML = selected === 'v1'
+      ? intro.title.split('<br>').map((line) => `<span class="line">${line}</span>`).join('')
+      : intro.title;
+    document.querySelectorAll('nav a').forEach((link) => {
+      if (link.dataset.intro === selected) link.setAttribute('aria-current', 'page');
+    });
+  </script>
+</body>
+</html>
